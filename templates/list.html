@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block body %}
+    {% if year %}
+        <h3>Results for {{ year }} {{ make }} {{ model }}</h3>
+    {% endif %}
+    {% if price %}
+        <h3>Results for {{ price }}</h3>
+    {% endif %}
+    <h5>Sorted by {{ sortby }}</h5>
+    <br>
+    {% for result in results %}
+        <div class="card">
+            <div class="card-header">
+                {{ result.info.vin }}
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">{{ result.info.year_make_model }} {{ result.info.trim }}</h4>
+
+                <p class="card-text">
+                    {% if result.info.price %} <b>Price</b> {{ result.info.price }}{% endif %}
+                    {% if result.info.tmv_dealer %} <b>Market Value</b> {{ result.info.tmv_dealer }}{% endif %}
+                    {% if result.score.price_diff_per %} <b>Difference</b> {{ result.score.price_diff_per }} {% endif %}
+                    {% if result.info.mileage %} <b>Mileage</b> {{ result.info.mileage }} {% endif %}
+                    <br>
+                    {% if result.score.score %} <b>Score</b> {{ result.score.score }} {% endif %}
+                    {% if result.score.rating_score %} <b>JD Power Score</b> {{ result.score.rating_score }} {% endif %}
+                    <br>
+                    {% if result.score.mileage_year %}<b>Mileage Per Year</b> {{ result.score.mileage_year }} <br>{% endif %}
+                    {% if result.info.recalls %} <b>Report</b>
+                        Recall: {{ result.info.recalls }} Title Problems: {{ result.info.title_check }}
+                        Accidents: {{ result.info.accidents }} Thefts: {{ result.info.theft }} <br>
+                    {% endif %}
+                    {% if result.report.warranty %}
+                        <b>Warranty Status</b><br>
+                        <ul>
+                            {% for row in result.report.warranty %}
+                                <li>{{ row }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% if result.report.recalls_detail %}
+                        <b>Recalls</b><br>
+                        <ul>
+                            {% for row in result.report.recalls_detail %}
+                                <li>{{ row }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% if result.info.address %} {{ result.info.address }} {% endif %}
+                </p>
+                <a href="{{ result.info.url }}">{{ result.info.url }}</a>
+            </div>
+        </div>
+        <br>
+    {% endfor %}
+{% endblock %}

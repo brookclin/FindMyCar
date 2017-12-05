@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Find My Car</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<div class="page">
+    <div class="container">
+        <h1>Find My Car</h1>
+        <h5>Chun Lin / Haoyu Jiang</h5>
+        <hr>
+        {% include "forms.html" %}
+
+        {% block body %}{% endblock %}
+    </div>
+</div>
